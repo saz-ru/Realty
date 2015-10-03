@@ -7,16 +7,15 @@
     http://www.springframework.org/schema/security
     http://www.springframework.org/schema/security/spring-security.xsd">
 
+    <http pattern="/resources/**" security="none"/>
     <http auto-config="true">
-
         <intercept-url pattern="/sec/moderation.html" access="ROLE_MODERATOR"/>
         <intercept-url pattern="/admin/*" access="ROLE_ADMIN"/>
 
-        <form-login login-page="/user-login.html"
+        <form-login login-page="/login.jsp"
                     default-target-url="/success-login.html"
                     authentication-failure-url="/error-login.html"/>
         <logout logout-success-url="/index.html"/>
-
     </http>
 
     <authentication-manager>
@@ -25,4 +24,5 @@
         </authentication-provider>
     </authentication-manager>
 
+    <beans:bean id="customUserDetailsService" class="com.realty.springmvc.service.CustomUserDetailsService"/>
 </beans:beans>
