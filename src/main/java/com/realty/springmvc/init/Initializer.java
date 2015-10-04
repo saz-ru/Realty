@@ -3,9 +3,11 @@ package com.realty.springmvc.init;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.servlet.DispatcherServlet;
 
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
+import javax.servlet.ServletRegistration.Dynamic;
 
 public class Initializer implements WebApplicationInitializer {
 
@@ -15,12 +17,9 @@ public class Initializer implements WebApplicationInitializer {
     ctx.register(WebAppConfig.class);
     servletContext.addListener(new ContextLoaderListener(ctx));
     ctx.setServletContext(servletContext);
-    /*ClassLoader loader=Runtime.getRuntime().getClass().getClassLoader();
-    Thread.currentThread().setContextClassLoader(loader);*/
 
-    /*Dynamic servlet = servletContext.addServlet("mvc-dispatcher",
-        new DispatcherServlet(ctx));
+    Dynamic servlet = servletContext.addServlet("mvc-dispatcher", new DispatcherServlet(ctx));
     servlet.addMapping("/");
-    servlet.setLoadOnStartup(1);*/
+    servlet.setLoadOnStartup(1);
   }
 }

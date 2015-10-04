@@ -43,5 +43,4 @@ public class Role {
   public void setUserRoles(Set<User> userRoles) {
     this.userRoles = userRoles;
   }
-
 }

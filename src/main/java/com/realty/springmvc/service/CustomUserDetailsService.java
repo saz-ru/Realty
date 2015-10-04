@@ -22,8 +22,16 @@ public class CustomUserDetailsService implements UserDetailsService {
   @Autowired
   private UserDAO userDAO;
 
-  public UserDetails loadUserByUsername(String login)
-      throws UsernameNotFoundException {
+  public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
+    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
+
+    for (String role : roles) {
+      authorities.add(new SimpleGrantedAuthority(role));
+    }
+    return authorities;
+  }
+
+  public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
     com.realty.springmvc.model.User domainUser = userDAO.getUser(login);
 
@@ -59,15 +67,6 @@ public class CustomUserDetailsService implements UserDetailsService {
       roles.add("ROLE_MODERATOR");
     }
     return roles;
-  }
-
-  public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
-    List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
-    for (String role : roles) {
-      authorities.add(new SimpleGrantedAuthority(role));
-    }
-    return authorities;
   }
 
 }

@@ -1,13 +1,20 @@
 package com.realty.springmvc.init;
 
+import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.*;
 import org.springframework.context.support.PropertySourcesPlaceholderConfigurer;
+import org.springframework.context.support.ReloadableResourceBundleMessageSource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate4.HibernateTransactionManager;
-import org.springframework.orm.hibernate4.LocalSessionFactoryBean;
+import org.springframework.orm.hibernate5.HibernateTransactionManager;
+import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
+import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
+import org.springframework.web.servlet.view.JstlView;
+import org.springframework.web.servlet.view.UrlBasedViewResolver;
 
 import javax.annotation.Resource;
 import javax.sql.DataSource;
@@ -18,8 +25,8 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("com.realty.springmvc")
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false)
-@ImportResource(value = "classpath:spring-security.xml")
-public class WebAppConfig {
+@ImportResource(value = "/WEB-INF/spring-security.xml")
+public class WebAppConfig extends WebMvcConfigurerAdapter {
 
   private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
   private static final String PROPERTY_NAME_DATABASE_URL = "db.url";
@@ -32,6 +39,11 @@ public class WebAppConfig {
 
   @Resource
   private Environment env;
+
+  @Bean
+  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
+    return new PropertySourcesPlaceholderConfigurer();
+  }
 
   @Bean
   public DataSource dataSource() {
@@ -67,16 +79,40 @@ public class WebAppConfig {
   }
 
   @Bean
-  public static PropertySourcesPlaceholderConfigurer propertySourcesPlaceholderConfigurer() {
-    return new PropertySourcesPlaceholderConfigurer();
-  }
-
-  /*@Bean
   public UrlBasedViewResolver setupViewResolver() {
     UrlBasedViewResolver resolver = new UrlBasedViewResolver();
     resolver.setPrefix("/WEB-INF/pages/");
     resolver.setSuffix(".jsp");
     resolver.setViewClass(JstlView.class);
     return resolver;
+  }
+
+  /*@Bean
+  public MessageSource messageSource() {
+    ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
+    messageSource.setBasename("messages");
+    return messageSource;
   }*/
+  @Bean(name = "messageSource")
+  public MessageSource configureMessageSource() {
+    ReloadableResourceBundleMessageSource messageSource = new ReloadableResourceBundleMessageSource();
+    messageSource.setBasename("classpath:messages");
+    messageSource.setCacheSeconds(5);
+    messageSource.setDefaultEncoding("UTF-8");
+    return messageSource;
+  }
+
+  @Override
+  public void addResourceHandlers(ResourceHandlerRegistry registry) {
+    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
+  }
+
+  @Bean
+  public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
+    SimpleMappingExceptionResolver b = new SimpleMappingExceptionResolver();
+    Properties mappings = new Properties();
+    mappings.put("org.springframework.dao.DataAccessException", "error");
+    b.setExceptionMappings(mappings);
+    return b;
+  }
 }

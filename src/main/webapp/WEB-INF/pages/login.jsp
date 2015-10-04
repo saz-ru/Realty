@@ -3,6 +3,8 @@
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <c:set var="req" value="${pageContext.request}"/>
 <c:set var="baseURL" value="${fn:replace(req.requestURL, req.requestURI, req.contextPath)}"/>
 <spring:url value="/resources/css/main.css" var="mainCss"/>
@@ -14,6 +16,7 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <sec:csrfMetaTags/>
     <%-- CSS --%>
     <link href="${mainCss}" rel="stylesheet"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -23,7 +26,7 @@
     <script src="${req.contextPath}/resources/js/respond.min.js"></script>
     <![endif]-->
 </head>
-<body>
+<body onload="document.loginForm.j_username.focus();">
 <%-- Top content --%>
 <div class="top-content">
     <div class="inner-bg">
@@ -54,11 +57,12 @@
                         </div>
                     </div>
                     <div class="form-bottom">
-                        <form role="form" action="<c:url value='j_spring_security_check'/>" method="post" enctype="multipart/form-data" class="login-form">
+                        <form:form role="form" action="${req.contextPath}/j_spring_security_check" method="POST"
+                                   class="login-form" name="loginForm" id="loginForm">
                             <div class="form-group">
-                                <label class="sr-only" for="j_password">Username</label>
+                                <label class="sr-only" for="j_username">Username</label>
                                 <input type="text" name="j_username" placeholder="Username..."
-                                       class="form-username form-control" id="j_username">
+                                       class="form-username form-control" id="j_username"/>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="j_password">Password</label>
@@ -66,8 +70,7 @@
                                        class="form-password form-control" id="j_password">
                             </div>
                             <button type="submit" class="btn">Sign in!</button>
-                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        </form>
+                        </form:form>
                     </div>
                 </div>
             </div>
