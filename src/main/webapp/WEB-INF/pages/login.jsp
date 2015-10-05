@@ -2,9 +2,11 @@
 <%@ page trimDirectiveWhitespaces="true" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="req" value="${pageContext.request}"/>
 <c:set var="baseURL" value="${fn:replace(req.requestURL, req.requestURI, req.contextPath)}"/>
 <spring:url value="/resources/css/main.css" var="mainCss"/>
@@ -69,7 +71,7 @@
                                 <input type="password" name="j_password" placeholder="Password..."
                                        class="form-password form-control" id="j_password">
                             </div>
-                            <button type="submit" class="btn">Sign in!</button>
+                            <button type="submit" class="btn"><fm:message key="button.login"/></button>
                         </form:form>
                     </div>
                 </div>
