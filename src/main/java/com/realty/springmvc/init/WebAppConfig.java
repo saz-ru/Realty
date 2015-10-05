@@ -10,7 +10,6 @@ import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
 import org.springframework.transaction.annotation.EnableTransactionManagement;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
-import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter;
 import org.springframework.web.servlet.handler.SimpleMappingExceptionResolver;
 import org.springframework.web.servlet.view.JstlView;
@@ -25,7 +24,7 @@ import java.util.Properties;
 @EnableTransactionManagement
 @ComponentScan("com.realty.springmvc")
 @PropertySource(value = "classpath:application.properties", ignoreResourceNotFound = false)
-@ImportResource(value = "/WEB-INF/spring-security.xml")
+@ImportResource(value = {"/WEB-INF/mvc-config.xml", "/WEB-INF/spring-security.xml"})
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
   private static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
@@ -102,10 +101,14 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
     return messageSource;
   }
 
-  @Override
+  /*@Override
   public void addResourceHandlers(ResourceHandlerRegistry registry) {
-    registry.addResourceHandler("/resources/**").addResourceLocations("/resources/");
-  }
+    registry.addResourceHandler("/resources*/
+
+  /**
+   * ").addResourceLocations("/resources/");
+   * }
+   */
 
   @Bean
   public SimpleMappingExceptionResolver simpleMappingExceptionResolver() {
