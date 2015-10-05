@@ -11,8 +11,7 @@ import javax.servlet.ServletRegistration.Dynamic;
 
 public class Initializer implements WebApplicationInitializer {
 
-  public void onStartup(ServletContext servletContext)
-      throws ServletException {
+  public void onStartup(ServletContext servletContext) throws ServletException {
     AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
     ctx.register(WebAppConfig.class);
     servletContext.addListener(new ContextLoaderListener(ctx));

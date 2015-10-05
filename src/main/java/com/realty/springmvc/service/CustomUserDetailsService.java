@@ -1,6 +1,8 @@
 package com.realty.springmvc.service;
 
 import com.realty.springmvc.dao.UserDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -19,6 +21,7 @@ import java.util.List;
 @Transactional(readOnly = true)
 public class CustomUserDetailsService implements UserDetailsService {
 
+  private final Logger logger = LoggerFactory.getLogger(this.getClass());
   @Autowired
   private UserDAO userDAO;
 
@@ -34,21 +37,12 @@ public class CustomUserDetailsService implements UserDetailsService {
   public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
 
     com.realty.springmvc.model.User domainUser = userDAO.getUser(login);
-
     boolean enabled = true;
     boolean accountNonExpired = true;
     boolean credentialsNonExpired = true;
     boolean accountNonLocked = true;
 
-    return new User(
-        domainUser.getLogin(),
-        domainUser.getPassword(),
-        enabled,
-        accountNonExpired,
-        credentialsNonExpired,
-        accountNonLocked,
-        getAuthorities(domainUser.getRole().getId())
-    );
+    return new User(domainUser.getLogin(), domainUser.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(domainUser.getRole().getId()));
   }
 
   public Collection<? extends GrantedAuthority> getAuthorities(Integer role) {
@@ -57,15 +51,19 @@ public class CustomUserDetailsService implements UserDetailsService {
   }
 
   public List<String> getRoles(Integer role) {
-
     List<String> roles = new ArrayList<String>();
-
-    if (role.intValue() == 1) {
-      roles.add("ROLE_MODERATOR");
-      roles.add("ROLE_ADMIN");
-    } else if (role.intValue() == 2) {
-      roles.add("ROLE_MODERATOR");
+    switch (role.intValue()) {
+      case 5:
+        roles.add("ROLE_MODERATOR");
+        roles.add("ROLE_ADMIN");
+        break;
+      case 6:
+        roles.add("ROLE_MODERATOR");
+        break;
+      default:
+        logger.debug("Authorisation Error", new Exception("Role unknown"));
     }
+    logger.debug("Roles autorized: " + roles.toString());
     return roles;
   }
 
