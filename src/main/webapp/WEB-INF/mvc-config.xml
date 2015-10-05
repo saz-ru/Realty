@@ -27,7 +27,7 @@
   <!--<mvc:annotation-driven/>-->
 
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
-        p:basename="messages"/>
+        p:basename="messages" p:defaultEncoding="UTF-8"/>
   <!-- Declare the Interceptor -->
   <mvc:interceptors>
     <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="locale"/>

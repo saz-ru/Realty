@@ -52,7 +52,7 @@
                         <div class="form-top-left">
                             <h3>Login to our site</h3>
 
-                            <p>Enter your username and password to log on:</p>
+                            <p><fm:message key="logon.msg"/></p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-lock"></i>
@@ -63,12 +63,12 @@
                                    class="login-form" name="loginForm" id="loginForm">
                             <div class="form-group">
                                 <label class="sr-only" for="j_username">Username</label>
-                                <input type="text" name="j_username" placeholder="Username..."
+                                <input type="text" name="j_username" placeholder="<fm:message key="form.username"/>"
                                        class="form-username form-control" id="j_username"/>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="j_password">Password</label>
-                                <input type="password" name="j_password" placeholder="Password..."
+                                <input type="password" name="j_password" placeholder="<fm:message key="form.password"/>"
                                        class="form-password form-control" id="j_password">
                             </div>
                             <button type="submit" class="btn"><fm:message key="button.login"/></button>
