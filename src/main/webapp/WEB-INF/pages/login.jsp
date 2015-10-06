@@ -39,9 +39,7 @@
                     <h1><strong>${message}</strong> Login Form</h1>
 
                     <div class="description">
-                        <p>
-                            All right reserved &copy;2015 <a href="${baseURL}"><strong>${baseURL}</strong></a>
-                        </p>
+                        <p>All right reserved &copy;2015 <a href="${baseURL}"><strong>${baseURL}</strong></a></p>
                     </div>
                 </div>
             </div>
@@ -50,7 +48,7 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3>Login to our site</h3>
+                            <h3><fmt:message key="login.form.name"/></h3>
 
                             <p><fm:message key="logon.msg"/></p>
                         </div>
