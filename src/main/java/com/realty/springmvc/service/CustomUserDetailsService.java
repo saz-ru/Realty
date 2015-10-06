@@ -27,7 +27,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
   public static List<GrantedAuthority> getGrantedAuthorities(List<String> roles) {
     List<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
-
     for (String role : roles) {
       authorities.add(new SimpleGrantedAuthority(role));
     }
@@ -35,13 +34,11 @@ public class CustomUserDetailsService implements UserDetailsService {
   }
 
   public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-
     com.realty.springmvc.model.User domainUser = userDAO.getUser(login);
     boolean enabled = true;
     boolean accountNonExpired = true;
     boolean credentialsNonExpired = true;
     boolean accountNonLocked = true;
-
     return new User(domainUser.getLogin(), domainUser.getPassword(), enabled, accountNonExpired, credentialsNonExpired, accountNonLocked, getAuthorities(domainUser.getRole().getId()));
   }
 

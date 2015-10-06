@@ -13,7 +13,7 @@
     <intercept-url pattern="/sec/moderation.html" access="hasRole('ROLE_MODERATOR')"/>
     <intercept-url pattern="/admin/*" access="hasRole('ROLE_ADMIN')"/>
 
-    <form-login login-page="/login.jsp"
+    <form-login login-page="/user-login.jsp"
                 username-parameter="j_username"
                 password-parameter="j_password"
                 login-processing-url="/j_spring_security_check"

@@ -81,8 +81,7 @@
                 <div class="col-sm-6 col-sm-offset-3 help-block">
                     <div class="alert alert-danger" role="alert">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span>
-                        Invalid login or password.
+                        <span class="sr-only">Error:</span> <fmt:message key="error.invalid.login"/>
                     </div>
                 </div>
                 </c:if>
