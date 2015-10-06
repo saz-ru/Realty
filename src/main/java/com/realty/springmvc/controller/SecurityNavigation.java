@@ -19,10 +19,10 @@ public class SecurityNavigation {
 		modelAndView.addObject("error", true);
 		return modelAndView;
 	}
-	
-	@RequestMapping(value="/success-login", method=RequestMethod.GET)
+
+	@RequestMapping(value = "/main", method = RequestMethod.GET)
 	public ModelAndView successLogin() {
-		return new ModelAndView("success-login");
+		return new ModelAndView("main");
 	}
 
 }
