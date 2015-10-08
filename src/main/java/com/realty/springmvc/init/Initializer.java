@@ -30,6 +30,7 @@ public class Initializer implements WebApplicationInitializer {
     charEncodingfilterReg.addMappingForUrlPatterns(null, false, "/*");
 
     Dynamic servlet = servletContext.addServlet("dispatcher", new DispatcherServlet(ctx));
+    servlet.setInitParameter("trimSpaces", "true");
     servlet.setInitParameter("defaultHtmlEscape", "true");
     servlet.addMapping("/");
     servlet.setLoadOnStartup(1);

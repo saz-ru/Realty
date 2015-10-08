@@ -29,9 +29,16 @@
   <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource"
         p:basename="messages" p:defaultEncoding="UTF-8"/>
   <!-- Declare the Interceptor -->
-  <mvc:interceptors>
+  <bean id="localeChangeInterceptor"
+        class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="locale"/>
+  <!--<mvc:interceptors>
     <bean class="org.springframework.web.servlet.i18n.LocaleChangeInterceptor" p:paramName="locale"/>
-  </mvc:interceptors>
+  </mvc:interceptors>-->
   <!-- Declare the Resolver -->
-  <bean id="localeResolver" class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+  <bean id="localeResolver"
+        class="org.springframework.web.servlet.i18n.SessionLocaleResolver"/>
+
+  <bean class="org.springframework.web.servlet.mvc.support.ControllerClassNameHandlerMapping"
+        p:interceptors-ref="localeChangeInterceptor"/>
+
 </beans>

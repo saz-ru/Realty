@@ -217,31 +217,29 @@
             <aggregation>
               <removeIncluded>true</removeIncluded>
               <insertNewLine>true</insertNewLine>
-              <output>${project.build.directory}/${project.build.finalName}/resources/js/main.js</output>
+              <output>${project.build.directory}/${project.build.finalName}/resources/js/default.js</output>
               <includes>
                 <include>**/jquery-2.1.4.js</include>
                 <include>**/bootstrap.js</include>
                 <include>**/jquery.backstretch.js</include>
-                <include>**/scripts.js</include>
               </includes>
               <!-- files to exclude, path relative to output's directory -->
-              <excludes>
+              <!--<excludes>
                 <exclude>**/respond.js</exclude>
                 <exclude>**/html5shiv.js</exclude>
                 <exclude>**/placeholder.js</exclude>
-              </excludes>
+              </excludes>-->
             </aggregation>
             <aggregation>
               <removeIncluded>true</removeIncluded>
               <insertNewLine>true</insertNewLine>
-              <output>${project.build.directory}/${project.build.finalName}/resources/css/main.css
+              <output>${project.build.directory}/${project.build.finalName}/resources/css/default.css
               </output>
               <includes>
                 <include>**/bootstrap.css</include>
                 <include>**/font-roboto.css</include>
                 <include>**/font-awesome.css</include>
                 <include>**/form-elements.css</include>
-                <include>**/style.css</include>
               </includes>
             </aggregation>
           </aggregations>

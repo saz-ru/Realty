@@ -8,34 +8,28 @@
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="req" value="${pageContext.request}"/>
 <c:set var="baseURL" value="${fn:replace(req.requestURL, req.requestURI, req.contextPath)}"/>
-<spring:url value="/resources/css/default.css" var="defaultCss"/>
 <spring:url value="/resources/css/main.css" var="mainCss"/>
-<spring:url value="/resources/js/default.js" var="defaultJs"/>
 <spring:url value="/resources/js/main.js" var="mainJs"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%--<sec:csrfMetaTags/>--%>
     <%-- CSS --%>
-    <link href="${defaultCss}" rel="stylesheet"/>
     <link href="${mainCss}" rel="stylesheet"/>
-    <title>Dashboard</title>
-
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="${req.contextPath}/resources/js/html5shiv.js"></script>
+    <script src="${req.contextPath}/resources/js/respond.min.js"></script>
+    <![endif]-->
+    <title><spring:message code="app.title"/></title>
 </head>
 <body>
-<div id="wrapper">
-    <nav class="navbar-default navbar-static-side" role="navigation">
-        <div class="sidebar-collapse">
-
-        </div>
-    </nav>
-    <div id="page-wrapper" class="gray-bg dashbard-1">
-
-    </div>
-</div>
-<%-- Javascript --%>
-<script src="${defaultJs}"></script>
-<script src="${mainJs}"></script>
+<jsp:include page="header.jsp"/>
+<jsp:include page="${partial}"/>
+<jsp:include page="footer.jsp"/>
 </body>
 </html>

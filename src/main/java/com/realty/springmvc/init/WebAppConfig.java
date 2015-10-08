@@ -19,6 +19,8 @@ import javax.annotation.Resource;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+//import com.realty.springmvc.view.JstlView;
+
 @Configuration
 @EnableWebMvc
 @EnableTransactionManagement

@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<%@ page trimDirectiveWhitespaces="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib prefix="fm" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <c:set var="req" value="${pageContext.request}"/>
 <c:set var="baseURL" value="${fn:replace(req.requestURL, req.requestURI, req.contextPath)}"/>
-<spring:url value="/resources/css/main.css" var="mainCss"/>
-<spring:url value="/resources/js/main.js" var="mainJs"/>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<spring:url value="/resources/css/default.css" var="defaultCss"/>
+<spring:url value="/resources/css/login.css" var="loginCss"/>
+<spring:url value="/resources/js/default.js" var="defaultJs"/>
+<spring:url value="/resources/js/login.js" var="loginJs"/>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html>
 <head>
@@ -20,7 +20,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%--<sec:csrfMetaTags/>--%>
     <%-- CSS --%>
-    <link href="${mainCss}" rel="stylesheet"/>
+    <link href="${defaultCss}" rel="stylesheet"/>
+    <link href="${loginCss}" rel="stylesheet"/>
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -48,9 +49,9 @@
                 <div class="col-sm-6 col-sm-offset-3 form-box">
                     <div class="form-top">
                         <div class="form-top-left">
-                            <h3><fmt:message key="login.form.name"/></h3>
+                            <h3><spring:message code="login.form.name"/></h3>
 
-                            <p><fm:message key="logon.msg"/></p>
+                            <p><spring:message code="logon.msg"/></p>
                         </div>
                         <div class="form-top-right">
                             <i class="fa fa-lock"></i>
@@ -61,15 +62,17 @@
                                    class="login-form" name="loginForm" id="loginForm">
                             <div class="form-group">
                                 <label class="sr-only" for="j_username">Username</label>
-                                <input type="text" name="j_username" placeholder="<fm:message key="form.username"/>"
+                                <input type="text" name="j_username"
+                                       placeholder="<spring:message code="form.username"/>"
                                        class="form-username form-control" id="j_username"/>
                             </div>
                             <div class="form-group">
                                 <label class="sr-only" for="j_password">Password</label>
-                                <input type="password" name="j_password" placeholder="<fm:message key="form.password"/>"
+                                <input type="password" name="j_password"
+                                       placeholder="<spring:message code="form.password"/>"
                                        class="form-password form-control" id="j_password">
                             </div>
-                            <button type="submit" class="btn"><fm:message key="button.login"/></button>
+                            <button type="submit" class="btn"><spring:message code="button.login"/></button>
                         </form:form>
                     </div>
                 </div>
@@ -79,7 +82,7 @@
                 <div class="col-sm-6 col-sm-offset-3 help-block">
                     <div class="alert alert-danger" role="alert">
                         <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
-                        <span class="sr-only">Error:</span> <fmt:message key="error.invalid.login"/>
+                        <span class="sr-only">Error:</span> <spring:message code="error.invalid.login"/>
                     </div>
                 </div>
                 </c:if>
@@ -88,7 +91,8 @@
     </div>
 </div>
 <%-- Javascript --%>
-<script src="${mainJs}"></script>
+<script src="${defaultJs}"></script>
+<script src="${loginJs}"></script>
 <!--[if lt IE 10]>
 <script src="${req.contextPath}/resources/js/placeholder.js"></script>
 <![endif]-->
